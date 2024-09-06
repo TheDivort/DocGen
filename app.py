@@ -60,4 +60,4 @@ def move_forward():
     return send_file("document.docx", as_attachment=True)
 
 if __name__ == "__main__":
-	app.run(debug=False, host='0.0.0.0')
+	app.run(debug=False, host='0.0.0.0', port="5000")
