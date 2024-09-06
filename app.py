@@ -21,7 +21,7 @@ def convert_date(date_str):
     return output1, output2
 
 def doc_generator(number, fulldate, mindate, fullname, address, term, tel, mail, pre_cost, cost):
-		doc = docxtpl.DocxTemplate("Договор.docx")
+		doc = docxtpl.DocxTemplate("Pattern.docx")
 		rub = cost[:-3]
 		context = { 'number' : number,
 					'fulldate' : fulldate,
