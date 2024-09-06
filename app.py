@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, send_file
 import docxtpl
 from num_to_rus import Converter
 
@@ -29,7 +29,7 @@ def doc_generator(number, fulldate, mindate, fullname, address, term, tel, mail,
 					'cost' : f"{cost} коп",
 					'post_cost' : f"{round(float(cost) - float(pre_cost), 2)} рублей"}
 		doc.render(context)
-		doc.save("шаблон-final.docx")
+		doc.save("document.docx")
 
 app = Flask(__name__)
 
@@ -50,7 +50,7 @@ def move_forward():
     cost = request.form.get("user_cost")
     output1, output2 = convert_date(input_date)
     doc = doc_generator(number, output2, output1, fullname, address, term, tel, email, pre_cost, cost)
-    return render_template("index.html", forward_message=doc)
+    return send_file("document.docx", as_attachment=True)
 
 if __name__ == "__main__":
 	app.run(debug=False, host='0.0.0.0')
