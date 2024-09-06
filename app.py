@@ -2,6 +2,13 @@ from flask import Flask, render_template, url_for, request, send_file
 import docxtpl
 from num_to_rus import Converter
 
+
+def zeroCheck(num):
+	if str(num)[-2:] == ".0":
+		return str(num) + "0"
+	return num
+
+
 def convert_date(date_str):
     year, month, day = map(int, date_str.split('-'))
 
@@ -25,9 +32,9 @@ def doc_generator(number, fulldate, mindate, fullname, address, term, tel, mail,
 					'tel' : tel, 
 					'mail' : mail,
 					'pre_cost' : f"{pre_cost} рублей",
-					'ncost': f"{Converter().convert(int(rub))} рублей {int(cost[-2:])} коп.",
+					'ncost': f"{Converter().convert(int(rub))} рублей {cost[-2:]} коп.",
 					'cost' : f"{cost} коп",
-					'post_cost' : f"{round(float(cost) - float(pre_cost), 2)} рублей"}
+					'post_cost' : f"{zeroCheck(round(float(cost) - float(pre_cost), 2))} рублей"}
 		doc.render(context)
 		doc.save("document.docx")
 
